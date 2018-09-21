@@ -60,7 +60,7 @@ pointLight.position.z = 400;
 scene.add(pointLight);
 
 //get the first frame going
-update();
+requestAnimationFrame(update);
 
 //get rotation
 document.onkeydown = checkKey;
