@@ -65,6 +65,9 @@ requestAnimationFrame(update);
 //get rotation
 document.onkeydown = checkKey;
 
+//add mouse rotation
+document.addEventListener("mousemove", rotateOnMouseMove);
+
 function update() {
     //render
     renderer.render(scene, camera);
@@ -118,4 +121,23 @@ function checkKey(e) {
     } else if(e.keyCode == "39") {
         animateDirection.right();
     }
+}
+
+//for mouse movement store last position in an array, we are starting in the middle oi the screen
+const lastMove = [window.innerWidth/2, window.innerHeight/2]; // x is index 0, y is index 1
+
+function rotateOnMouseMove(e) {
+    e = e || window.event;
+
+    //find the difference between last and current mouse position
+    const moveX = (e.clientX - lastMove[0]);
+    const moveY = (e.clientY - lastMove[1]);
+
+    // rotate globe based on current values 
+    globe.rotation.x += (moveX * .005);
+    globe.rotation.y += (moveY * .005);
+
+    //place new position in lastMove
+    lastMove[0] = e.clientX;
+    lastMove[1] = e.clientY;   
 }
